@@ -3,7 +3,7 @@ import pandas as pd
 
 st.cache_data()
 # Load the mapping table
-mapping_table = pd.read_csv("/Users/jimhu/Documents/Jommie/Streamlit/Data/DIM_Activity_Mapping.csv")
+mapping_table = pd.read_csv("Data/DIM_Activity_Mapping.csv")
 
 st.markdown("这里有个问题卡壳了，如何让学生在搜不到activity的时候自行customize，checkbox不work")
 
