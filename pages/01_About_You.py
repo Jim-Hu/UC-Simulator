@@ -1,0 +1,71 @@
+import streamlit as st
+import pandas as pd
+
+# Load the mapping table
+mapping_table = pd.read_csv("/Users/jimhu/Documents/Jommie/Streamlit/Data/DIM_Activity_Mapping.csv")
+
+# Placeholder for the list of activities
+if 'activities' not in st.session_state:
+    st.session_state.activities = []
+
+# Function to remove an activity based on its index
+def remove_activity(index):
+    st.session_state.activities.pop(index)
+    st.experimental_rerun()
+
+# Function to map activity name to its type
+def map_activity(activity_name):
+    activity_name = activity_name.strip().lower()  # Convert to lowercase and remove leading/trailing spaces
+    if activity_name in mapping_table['Activity Name'].str.strip().str.lower().values:
+        activity_type = mapping_table.loc[mapping_table['Activity Name'].str.strip().str.lower() == activity_name, 'Activity Type'].iloc[0]
+        return activity_type
+    else:
+        return None
+
+# Display header
+st.header("Extracurricular Activities")
+
+# Form for input
+with st.form("my_form"):
+    st.markdown('Add Your Extracurricular Activity')
+    
+    # Selectbox for activity name
+    activity_name = st.selectbox("Activity Name", mapping_table['Activity Name'])
+    
+    # Check if activity name exists in mapping table
+    activity_type = map_activity(activity_name)
+    
+    if activity_type:
+        st.info(f"Activity type automatically mapped to: {activity_type}")
+    else:
+        activity_type = st.selectbox("Activity Type", ["Sports", "Arts", "Academic", "Community Service"])
+    
+    achievement_tier = st.selectbox("Achievement Tier", ["Local", "Regional", "National", "International"])
+    submitted = st.form_submit_button("Add Activity")
+    
+    if submitted and activity_name:
+        st.session_state.activities.append((activity_name, activity_type, achievement_tier))
+
+# Display the activities
+st.subheader("Your Extracurricular Activities")
+for i, (name, act_type, tier) in enumerate(st.session_state.activities):
+    cols = st.columns([3, 2, 2, 1])
+    cols[0].write(name)
+    cols[1].write(act_type)
+    cols[2].write(tier)
+    # Add a 'Remove' button for each activity
+    if cols[3].button("Remove", key=f"remove_{i}"):
+        remove_activity(i)
+
+# Custom CSS to style the 'Remove' button
+st.markdown("""
+<style>
+button {
+    color: white;
+    background-color: red;
+    padding: 0.25em 0.5em;
+    border-radius: 0.3em;
+    border: none;
+}
+</style>
+""", unsafe_allow_html=True)

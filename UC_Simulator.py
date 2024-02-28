@@ -4,7 +4,7 @@ from wordcloud import WordCloud
 import matplotlib.pyplot as plt
 
 # Set page configuration
-st.set_page_config(page_title="UC Simulator", page_icon="🚀", layout="wide",initial_sidebar_state='collapsed')
+st.set_page_config(page_title="UC Simulator", page_icon="🚀", layout="centered",initial_sidebar_state='collapsed')
 
 # Main page content
 st.title("UC Application Simulator 🚀")
