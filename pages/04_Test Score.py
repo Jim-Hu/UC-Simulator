@@ -136,12 +136,17 @@ sidebar.markdown("---")
 st.divider()
 st.markdown("👇When you complete, let's generate your preliminary ranking...")
 
+# Update the DataFrame with AP scores
+def update_ap_scores():
+    st.session_state.user_data['AP_Exam_List'] = st.session_state.AP_Exam_List
+
 if st.session_state.AP_Exam_List:
     # If AP scores have been added, show the button to generate the ranking report
-    if st.button('Generate My Ranking Report',type='primary'):
-        switch_page('AP Scores')
+    if st.button('Save and Continue',type='primary'):
+        update_ap_scores()
+        switch_page('05_Extracurricular Activity')
 else:
     # If no AP scores have been added (or if 'No' was selected for AP exams taken),
     # you can still show the button or perhaps disable it or change its message
     if st.button('Proceed without AP Scores'):
-        switch_page('AP Scores')
+        switch_page('05_Extracurricular Activity')

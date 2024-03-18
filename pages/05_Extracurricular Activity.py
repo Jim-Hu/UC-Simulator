@@ -1,5 +1,6 @@
 import streamlit as st
 import pandas as pd
+from streamlit_extras.switch_page_button import switch_page
 
 st.cache_data()
 # Load the mapping table
@@ -63,7 +64,7 @@ with st.form("my_form"):
 # Display the activities
 st.subheader("Your Extracurricular Activities")
 for i, (name, act_type, tier) in enumerate(st.session_state.activities):
-    cols = st.columns([3, 2, 2, 1])
+    cols = st.columns([3, 2, 2, 2])
     cols[0].write(name)
     cols[1].write(act_type)
     cols[2].write(tier)
@@ -71,15 +72,8 @@ for i, (name, act_type, tier) in enumerate(st.session_state.activities):
     if cols[3].button("Remove", key=f"remove_{i}"):
         remove_activity(i)
 
-# Custom CSS to style the 'Remove' button
-st.markdown("""
-<style>
-button {
-    color: white;
-    background-color: red;
-    padding: 0.25em 0.5em;
-    border-radius: 0.3em;
-    border: none;
-}
-</style>
-""", unsafe_allow_html=True)
+# Button to proceed to the next page
+st.markdown("### Ready to Proceed?")
+if st.button("Generate Admission Report"):
+    st.session_state.user_data['Activity_List'] =  st.session_state.activities
+    switch_page("06_Admission_Report")

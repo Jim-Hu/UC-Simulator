@@ -88,7 +88,21 @@ for campus, percentage in uc_campuses.items():
 # Another divider
 sidebar.markdown("---")
 
-# Button to move to the Course Selection page
-if st.button('Proceed to Course Selection',type='primary'):
-    # Assuming 'switch_page' function exists and 'page' is a session state or parameter
+def update_courses():
+    course_data = {
+        'freshmen_courses': freshmen_courses,
+        'freshmen_ap_courses': freshmen_ap_courses,
+        'freshmen_honor_courses': freshmen_honor_courses,
+        'freshmen_ib_courses': freshmen_ib_courses,
+        'sophomore_courses': sophomore_courses,
+        'sophomore_ap_courses': sophomore_ap_courses,
+        'sophomore_honor_courses': sophomore_honor_courses,
+        'sophomore_ib_courses': sophomore_ib_courses,
+        # ... include all years ...
+    }
+    for key, value in course_data.items():
+        st.session_state.user_data[key] = value
+
+if st.button('Proceed to Course Selection', type='primary'):
+    update_courses()
     switch_page('Test Score')

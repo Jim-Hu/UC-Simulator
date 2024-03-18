@@ -3,11 +3,16 @@ import pandas as pd
 import numpy as np
 from streamlit_extras.switch_page_button import switch_page
 
+
 # Set page configuration
-st.set_page_config(page_title="UC Simulator", page_icon="🚀", layout="wide",initial_sidebar_state='collapsed')
+st.set_page_config(page_title="UC Simulator", page_icon="🚀", layout="wide", initial_sidebar_state='collapsed')
 
-
-import streamlit as st
+# Initialize 'user_data' DataFrame in session state if it does not exist
+if 'user_data' not in st.session_state:
+    st.session_state.user_data = pd.DataFrame(columns=[
+        'first_name', 'last_name', 'school_type', 'selected_school_code', 
+        'intended_campus', 'intended_major', 'GPA'
+    ])
 
 
 # About You
@@ -115,7 +120,21 @@ st.divider()
 
 ## Start button
 col1, col2,col3 = st.columns([2,1,2])
+def save_inputs():
+    # Append new row to DataFrame
+    new_row = {
+        'first_name': first_name,
+        'last_name': last_name,
+        'school_type': school_type,
+        'selected_school_code': selected_school_code if 'selected_school_code' in st.session_state else None,
+        'intended_campus': st.session_state.get('intended_campus'),
+        'intended_major': st.session_state.get('intended_major'),
+        'GPA': GPA
+    }
+    st.session_state.user_data = st.session_state.user_data.append(new_row, ignore_index=True)
+
 with col2:
     if st.button('Save and Continue', type='primary'):
+        save_inputs()
         switch_page("What is JPA?")
 
