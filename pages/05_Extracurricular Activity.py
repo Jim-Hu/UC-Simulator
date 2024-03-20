@@ -77,3 +77,6 @@ st.markdown("### Ready to Proceed?")
 if st.button("Generate Admission Report"):
     st.session_state.user_data['Activity_List'] =  st.session_state.activities
     switch_page("06_Admission_Report")
+
+
+st.write(st.session_state.user_data.to_dict())

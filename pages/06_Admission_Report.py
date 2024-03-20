@@ -81,3 +81,6 @@ with col3:
     st.markdown("""
     Prepare and store your best version. When the application opens, export to UC application system with one click.
     """)
+
+
+st.write(st.session_state.user_data.to_dict())

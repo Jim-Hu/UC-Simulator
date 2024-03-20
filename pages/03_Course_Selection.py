@@ -106,3 +106,6 @@ def update_courses():
 if st.button('Proceed to Course Selection', type='primary'):
     update_courses()
     switch_page('Test Score')
+
+
+st.write(st.session_state.user_data.to_dict())

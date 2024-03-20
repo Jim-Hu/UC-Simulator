@@ -14,7 +14,7 @@ st.markdown("""
     As you build you application, you will see your ranking evolving... ♠️♥️♠️♦️
     """)
 
-st.markdown("Jim：为了不浪费我的鲍尔默峰值，我迟些再回来优化，我需要做两个col，左边放metric，右边展示解释，按钮也要改")
+st.markdown("Jim：我迟些再回来优化，我需要做两个col，左边放metric，右边展示解释，按钮也要改")
 # Main page explanation
 st.markdown("""
    ### Metrics Explained:
@@ -73,3 +73,6 @@ sidebar.markdown("---")
 if st.button('Proceed to Course Selection',type='primary'):
     # Assuming 'switch_page' function exists and 'page' is a session state or parameter
     switch_page('Course Selection')
+
+
+st.write(st.session_state.user_data.to_dict())

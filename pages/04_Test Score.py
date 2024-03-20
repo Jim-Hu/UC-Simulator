@@ -150,3 +150,6 @@ else:
     # you can still show the button or perhaps disable it or change its message
     if st.button('Proceed without AP Scores'):
         switch_page('05_Extracurricular Activity')
+
+
+st.write(st.session_state.user_data.to_dict())
