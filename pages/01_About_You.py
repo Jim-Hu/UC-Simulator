@@ -131,10 +131,13 @@ def save_inputs():
         'intended_major': st.session_state.get('intended_major'),
         'GPA': GPA
     }
-    st.session_state.user_data = st.session_state.user_data.append(new_row, ignore_index=True)
-
+    new_row_df = pd.DataFrame([new_row])
+    st.session_state.user_data = pd.concat([st.session_state.user_data, new_row_df], ignore_index=True)
+    
+    
 with col2:
     if st.button('Save and Continue', type='primary'):
         save_inputs()
         switch_page("What is JPA?")
 
+st.write(st.session_state.user_data.to_dict())
