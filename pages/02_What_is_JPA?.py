@@ -76,3 +76,5 @@ if st.button('Proceed to Course Selection',type='primary'):
 
 
 st.write(st.session_state.user_data.to_dict())
+
+st.write(st.session_state.user_data)

@@ -98,20 +98,22 @@ if school_type == "High School in California":
 st.divider()
 # Campuses & Majors
 st.markdown("#### Campuses & Majors 🏛️")
-
-# Intended UC Campus for Admission Simulation
-st.multiselect("Intended UC Campus for Admission Simulation",
+col1, col2, col3, = st.columns([3,2,2])
+# Intended Major
+with col1:
+    # Intended UC Campus for Admission Simulation
+    st.session_state['intended_campus']  = st.multiselect("Intended UC Campus for Admission Simulation",
                options=["UC Berkeley", "UC Davis", "UC Irvine", "UCLA", "UC Merced",
                         "UC Riverside", "UC San Diego", "UC Santa Barbara", "UC Santa Cruz"])
 
-# Intended Major
-st.text_input("Intended major", "", help="i.e. Chemistry or Undeclared")
+
+    st.session_state['intended_Major'] = st.text_input("Enter your Intented Major", "", help="i.e. Chemistry or Undeclared")
 
 # Academic
 st.markdown("#### GPA 💯")
 
 # Weighted GPA in 10th and 11th Grade (Sophomore & Junior)
-col1, col2, col3 = st.columns([3, 1, 1])  # Adjust the middle column width as needed
+col1, col2, col3 = st.columns([3, 2, 2])  # Adjust the middle column width as needed
 with col1:  # This places the slider in the middle column, effectively controlling its width
     GPA = st.slider("Weighted GPA in 10th and 11th Grade (Sophomore & Junior)",
               min_value=2.6, max_value=5.0, value=5.0, step=0.01)
@@ -141,3 +143,5 @@ with col2:
         switch_page("What is JPA?")
 
 st.write(st.session_state.user_data.to_dict())
+st.write(st.session_state.user_data)
+st.write("后续改进：全部选项改为必填")
